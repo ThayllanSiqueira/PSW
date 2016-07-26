@@ -1,0 +1,11 @@
+Comandos GIT
+
+# Copiar um repositório para uma pasta no seu computador
+git clone http://github...
+
+# Criar um commit
+git add --all
+git commit -m "descrição das alterações feitas"
+
+# Enviar o ultimo commit para o repositório
+git push origin master
