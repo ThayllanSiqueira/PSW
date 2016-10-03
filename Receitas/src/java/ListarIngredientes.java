@@ -6,8 +6,14 @@
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -43,20 +49,29 @@ public class ListarIngredientes extends HttpServlet {
         
         List<Ingrediente> resultado = new ArrayList<Ingrediente>();
         
-        Ingrediente i1 = new Ingrediente();
-        i1.setNome("Cenoura");
-        i1.setCalorias(30);
-        resultado.add(i1);
-        
-        Ingrediente i2 = new Ingrediente();
-        i2.setNome("Catupiry");
-        i2.setCalorias(300);
-        resultado.add(i2);
-        
-        Ingrediente i3 = new Ingrediente();
-        i3.setNome("Frango");
-        i3.setCalorias(150);
-        resultado.add(i3);
+        try {
+            //Carrega o driver na memória
+            Class.forName("org.apache.derby.jdbc.ClientDriver");
+            // Conecta ao banco
+            Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/sample","app", "app");
+            
+            Statement statement = con.createStatement();
+            
+            String query = "SELECT * FROM INGREDIENTE";
+            
+            //Executa uma query
+            ResultSet resposta = statement.executeQuery(query);
+            
+            while(resposta.next()){
+                Ingrediente i = new Ingrediente();
+                i.setNome(resposta.getString("Nome"));
+                i.setCalorias(resposta.getInt("Calorias"));
+                resultado.add(i);
+            }
+            
+        } catch (Exception ex) {
+            Logger.getLogger(ListarIngredientes.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         return resultado;
     }

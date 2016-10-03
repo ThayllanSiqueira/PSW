@@ -52,7 +52,7 @@ public class IncluirIngrediente extends HttpServlet {
             //executa um update
             int linhas = comando.executeUpdate(query);
             
-            request.getRequestDispatcher("sucesso.jsp").forward(request, response);
+            request.getRequestDispatcher("sucesso.jsp").forward(request, response); 
 
         } catch (Exception ex) {
             
