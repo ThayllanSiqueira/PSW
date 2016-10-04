@@ -14,11 +14,11 @@
     <body>
         <h1>Lista de Condenados</h1>
         
-        <c:forEach items="${requestScope.condenadosPresos}" var="condenados">
+        <c:forEach items="${requestScope.condenadosPresos}" var="condenado">
             <h4>Condenado: <h4>
-             ${condenados.nome} 
-            <br/> ${condenados.crime} 
-            <br/> ${condenados.Tempo_Prisao}
+             ${condenado.nome} 
+            <br/> ${condenado.crime} 
+            <br/> ${condenado.tempo_Prisao}
         </c:forEach>
     </body>
 </html>
